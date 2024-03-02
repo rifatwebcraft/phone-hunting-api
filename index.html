@@ -11,19 +11,26 @@
     <header>
         <h3 class="text-5xl">Hunting Phone</h3>
     </header>
-    <main>
+    <main class="container mx-auto mt-8">
         <section>
-            <div id="phone-container">
-                <div class="card w-96 bg-base-100 shadow-xl">
-                    <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
-                    <div class="card-body">
-                      <h2 class="card-title">Shoes!</h2>
-                      <p>If a dog chews shoes whose shoes does he choose?</p>
-                      <div class="card-actions justify-end">
-                        <button class="btn btn-primary">Buy Now</button>
-                      </div>
-                    </div>
-                  </div>
+            <!-- search section -->
+            <section class="bg-green-400 rounded-xl p-4 m-4">
+                <input id="input-field" type="text" placeholder="Search..." class="input input-bordered w-full max-w-xs " />
+                <button onclick="handleSearch()" class="btn btn-secondary">Search</button>
+            </section>
+            <!-- loading secton -->
+            <div id="loading-spinner" class="my-40 text-center hidden">
+                <span class="loading loading-spinner loading-lg"></span>
+            </div>
+            <!-- Search result -->
+
+            <div id="phone-container" class=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                
+            </div>
+
+            <!-- show all phones -->
+            <div id="show-all-container" class="hidden mt-8 text-center">
+                <button onclick="handleShowAll()" class="btn btn-accent">Show all</button>
             </div>
         </section>
     </main>
