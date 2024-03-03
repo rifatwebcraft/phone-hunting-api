@@ -1,4 +1,4 @@
-const loadPhone = async (searchValue, isShowAll) => {
+const loadPhone = async (searchValue='13', isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchValue}`);
     const data = await res.json();
     const phones = data.data;
@@ -13,7 +13,7 @@ const displayPhone = (phones, isShowAll) =>{
     //clear the container cards before adding new card
     phoneContainer.textContent = ' '; //note : aikane container k clear kora hoyeche new search result dekanor joono..
     //search result phones length check...
-    console.log(phones.length);
+    // console.log(phones.length);
     //display show all button if there are more than 12 phones..
     const showAllContainer = document.getElementById('show-all-container')
     if(phones.length > 12 && !isShowAll){
@@ -29,7 +29,7 @@ const displayPhone = (phones, isShowAll) =>{
     }
 
     phones.forEach(phones => {
-        console.log(phones);
+        // console.log(phones);
         //2. creat a div
         const phoneCard = document.createElement('div');
         phoneCard.classList = `card bg-base-100 shadow-xl p-7`;
@@ -52,8 +52,31 @@ const displayPhone = (phones, isShowAll) =>{
 }
 
 //
-const handleShowDetail = (id) =>{
-    console.log('gumai ja', id);
+const handleShowDetail = async (id) =>{
+    // console.log('clicked show details', id);
+    //load single phone data..
+    const rest = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+    const data = await rest.json();
+    console.log(data);
+    const phone = data.data;
+    const phoneName = document.getElementById('show-detail-phone-name');
+    phoneName.innerText = phone.name;
+
+    const showDetailContainer = document.getElementById('show-detail-container');
+    showDetailContainer.innerHTML = `
+        <img src="${phone.image}" alt="" />
+        <p><span>Storage :</span>${phone?.mainFeatures?.storage}</p>
+        <p><span>gps :</span>${phone?.others?.GPS || 'no gps'}</p>
+        
+    `
+    
+    showPhoneDetails(phone);
+}
+
+const showPhoneDetails = (phone) =>{
+    console.log(phone);
+    //show the modal
+    showDetailsModal.showModal();
 }
 
 //handle search button
@@ -81,3 +104,5 @@ const toggleLoadingSpinner = (isLoading) => {
 const handleShowAll = () =>{
     handleSearch(true);
 }
+
+loadPhone();
